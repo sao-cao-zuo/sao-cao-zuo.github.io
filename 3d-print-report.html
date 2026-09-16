@@ -1,21 +1,210 @@
-<style>
-* {
-  user-select: none;
-}
-@media print {
-  body {
-    display: none;
-  }
-}
-</style>
-<script>
-// 禁用右键菜单
-document.addEventListener('contextmenu', e => e.preventDefault())
-// 拦截截屏快捷键
-document.addEventListener('keydown', e => {
-  if([44, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123].includes(e.keyCode)) {
-    e.preventDefault()
-    return false
-  }
-})
-</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D打印工程实践实验报告</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #2d2d2d;
+    }
+    .report-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 48px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .header-info {
+      text-align: center;
+      margin-bottom: 40px;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 24px;
+    }
+    .header-info h1 {
+      color: #667eea;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .info-item {
+      text-align: left;
+      padding: 8px 0;
+    }
+    .info-item span {
+      font-weight: 600;
+      color: #667eea;
+    }
+    section {
+      margin-bottom: 36px;
+    }
+    section h2 {
+      color: #764ba2;
+      font-size: 22px;
+      margin-bottom: 16px;
+      padding-left: 12px;
+      border-left: 4px solid #667eea;
+    }
+    section p, section li {
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    ul {
+      padding-left: 24px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 32px;
+      background: #667eea;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    }
+    @media print {
+      body {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-card">
+    <div class="header-info">
+      <h1>工程实践—3D打印实验报告</h1>
+      <div class="info-grid">
+        <div class="info-item"><span>课程名称：</span>工程实践-3D打印</div>
+        <div class="info-item"><span>实验成员：</span>朱玥琦、高睿阳、毛逸凡、吴其庭</div>
+        <div class="info-item"><span>核心内容：</span>3D打印机操作、Bambu Studio建模与切片调试</div>
+        <div class="info-item"><span>评分规则：</span>以个人为单位独立打分</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>一、实验目的</h2>
+      <ul>
+        <li>掌握FDM熔融沉积3D打印机的基础工作原理，熟悉拓竹P2S打印机的标准操作全流程</li>
+        <li>熟练使用Bambu Studio完成模型导入、位置校准、分层切片的完整操作</li>
+        <li>通过两次打印实操，掌握耗材更换、参数调试、打印异常排查的工程实践能力</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>二、核心实验流程</h2>
+      <h3 style="margin:12px 0; color:#667eea;">实验1：带校徽卡套建模与打印</h3>
+      <ol>
+        <li>建模校准：在Bambu Studio中完成卡套模型的坐标系位移调整，将校徽浮雕精准居中摆放在卡套正面预设位置</li>
+        <li>耗材更换：将打印机原有棕、黑耗材，分别替换为蓝、白两款PLA打印材料，确认出料正常无堵头</li>
+        <li>切片调试：连接拓竹P2S打印机，针对卡套浮雕区域优化分层参数，提升校徽图案的打印精细度</li>
+        <li>实体打印：确认首层黏贴正常后启动打印，全程监控状态避免翘边、错位问题</li>
+      </ol>
+
+      <h3 style="margin:24px 0 12px; color:#667eea;">实验2：NFC外挂卡槽建模与打印</h3>
+      <p>基于前一次实验积累的建模与调试经验，完成NFC外挂卡槽的适配性建模、切片参数配置与实体打印，最终产出可直接用于校园卡NFC外挂的实用配件。</p>
+    </section>
+
+    <section>
+      <h2>三、问题排查与优化过程</h2>
+      <ul>
+        <li><strong>软件操作不熟悉问题：</strong>Bambu Studio交互逻辑和传统三维设计软件差异较大，初期上手效率低。我们通过反复观看教学视频、请教指导老师、小组交叉讨论，快速掌握了全流程操作方法。</li>
+        <li><strong>校徽打印异常问题：</strong>首次切片预览时发现校徽没有显示在卡套表面，无法生成浮雕效果。对照操作步骤回溯后，修正了两个模型的Z轴高度参数，切片预览即可正常显示完整浮雕结构。</li>
+        <li><strong>首版成品质量差问题：</strong>第一次打印出的卡套表面粗糙、边缘毛边严重，校徽图案模糊。我们反复降低打印层高、优化填充密度，最终得到表面平整、边缘顺滑、校徽浮雕清晰的合格成品。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>四、实验心得</h2>
+      <p>这次3D打印课程彻底打破了我之前对3D打印"只是融化材料塑形"的浅层次认知，这项技术背后的分层控制、温度匹配、耗材适配等工程细节，以及覆盖从日常小配件到工业轻量化零部件迭代的广阔应用价值，都远超我的预期。</p>
+      <p>这次实操让我们完整走完了从STL模型导入、Bambu Studio切片参数微调，到操控拓竹P2S打印机完成实体打印的全链路流程，亲手验证了每一个打印参数的微小调整，都会直接影响最终成品的使用体验，这种"参数微调直接反馈实体质量"的工程实践过程，是纯理论学习无法获得的体验。</p>
+      <p>我也跳出了"3D打印只是快速打样工具"的刻板印象，理解了这项技术在小批量定制、复杂结构快速验证领域的独特优势，调试出合格成品的强烈成就感，也让我对后续的其他工程实践课程充满了期待。</p>
+    </section>
+
+    <a href="index.html" class="back-btn">返回个人站点首页</a>
+  </div>
+
+  <script>
+    // 复用站点统一防截屏防护
+    document.addEventListener('contextmenu', e => e.preventDefault())
+    document.addEventListener('keydown', e => {
+      const blockKeys = [44, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123]
+      if(blockKeys.includes(e.keyCode)) {
+        e.preventDefault()
+        return false
+      }
+      if(e.ctrlKey && e.shiftKey && ['I','S','J'].includes(e.key.toUpperCase())) {
+        e.preventDefault()
+        return false
+      }
+    })
+
+    // 动态溯源水印
+    const createAntiScreenshotWatermark = () => {
+      const watermarkCanvas = document.createElement('canvas')
+      watermarkCanvas.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99999;
+        pointer-events: none;
+      `
+      document.body.appendChild(watermarkCanvas)
+      const ctx = watermarkCanvas.getContext('2d')
+      
+      const renderWatermark = () => {
+        watermarkCanvas.width = window.innerWidth * window.devicePixelRatio
+        watermarkCanvas.height = window.innerHeight * window.devicePixelRatio
+        ctx.clearRect(0, 0, watermarkCanvas.width, watermarkCanvas.height)
+        ctx.globalAlpha = 0.07
+        ctx.font = `${16 * window.devicePixelRatio}px Microsoft YaHei`
+        ctx.fillStyle = '#000'
+        ctx.rotate(-Math.PI / 12)
+        const watermarkText = `3D打印实验报告 | 访问时间: ${new Date().toLocaleString()}`
+        for(let i = 0; i < watermarkCanvas.width; i += 260 * window.devicePixelRatio) {
+          for(let j = 0; j < watermarkCanvas.height; j += 190 * window.devicePixelRatio) {
+            const offsetX = (Math.random() - 0.5) * 40 * window.devicePixelRatio
+            const offsetY = (Math.random() - 0.5) * 40 * window.devicePixelRatio
+            ctx.fillText(watermarkText, i + offsetX, j + offsetY)
+          }
+        }
+      }
+      renderWatermark()
+      setInterval(renderWatermark, 300)
+      window.addEventListener('resize', renderWatermark)
+    }
+    createAntiScreenshotWatermark()
+
+    document.addEventListener('visibilitychange', () => {
+      if(document.hidden) {
+        document.body.style.filter = 'blur(20px)'
+      } else {
+        document.body.style.filter = 'blur(0px)'
+      }
+    })
+  </script>
+</body>
+</html>
