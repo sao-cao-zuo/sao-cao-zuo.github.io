@@ -9,6 +9,8 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      /* 基础防选中文本 */
+      user-select: none;
     }
     body {
       font-family: system-ui, sans-serif;
@@ -51,13 +53,92 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     }
+    /* 打印场景隐藏全部内容，防止通过浏览器打印导出页面 */
+    @media print {
+      body {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>你好，我是北航大一新生</h1>
-    <p>欢迎来到我的个人站点，这里会分享我的学习记录、技术练手项目和日常日常随笔。</p>
+    <h1> A coruscating panoply of experimental interfaces, wherein every scroll unfurls a palimpsest of glitch, grain, and gossamer gradients.</h1>
+    <p>file。</p>
     <a href="#" class="btn">查看我的项目作品</a>
   </div>
+
+  <script>
+    // 1. 禁用右键菜单，阻止右键截图、另存为操作
+    document.addEventListener('contextmenu', e => e.preventDefault())
+
+    // 2. 拦截系统截屏、浏览器截图类快捷键
+    document.addEventListener('keydown', e => {
+      // 拦截PrintScreen、F12、Ctrl+Shift+I、Ctrl+Shift+S等常见截屏/调试快捷键
+      const blockKeys = [44, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123]
+      if(blockKeys.includes(e.keyCode)) {
+        e.preventDefault()
+        return false
+      }
+      if(e.ctrlKey && e.shiftKey && ['I','S','J'].includes(e.key.toUpperCase())) {
+        e.preventDefault()
+        return false
+      }
+    })
+
+    // 3. 动态全屏溯源水印，每300ms自动重绘，防止被批量擦除
+    const createAntiScreenshotWatermark = () => {
+      const watermarkCanvas = document.createElement('canvas')
+      watermarkCanvas.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99999;
+        pointer-events: none;
+      `
+      document.body.appendChild(watermarkCanvas)
+      const ctx = watermarkCanvas.getContext('2d')
+      
+      const renderWatermark = () => {
+        watermarkCanvas.width = window.innerWidth * window.devicePixelRatio
+        watermarkCanvas.height = window.innerHeight * window.devicePixelRatio
+        ctx.clearRect(0, 0, watermarkCanvas.width, watermarkCanvas.height)
+        ctx.globalAlpha = 0.08
+        ctx.font = `${16 * window.devicePixelRatio}px Microsoft YaHei`
+        ctx.fillStyle = '#000'
+        ctx.rotate(-Math.PI / 12)
+        // 水印内容自动带上当前访问时间和随机设备标识
+        const watermarkText = `访问时间: ${new Date().toLocaleString()} | 设备ID: ${navigator.userAgent.slice(0,12)}`
+        // 随机偏移生成水印，避免规则化批量擦除
+        for(let i = 0; i < watermarkCanvas.width; i += 250 * window.devicePixelRatio) {
+          for(let j = 0; j < watermarkCanvas.height; j += 180 * window.devicePixelRatio) {
+            const offsetX = (Math.random() - 0.5) * 40 * window.devicePixelRatio
+            const offsetY = (Math.random() - 0.5) * 40 * window.devicePixelRatio
+            ctx.fillText(watermarkText, i + offsetX, j + offsetY)
+          }
+        }
+      }
+      renderWatermark()
+      // 定时重绘水印，防止静态水印被脚本一键清除
+      setInterval(renderWatermark, 300)
+      // 窗口大小变化时自动适配重绘
+      window.addEventListener('resize', renderWatermark)
+    }
+    createAntiScreenshotWatermark()
+
+    // 4. 页面失焦检测，检测到用户切换到截屏工具时自动模糊敏感区域
+    let originalContent = null
+    document.addEventListener('visibilitychange', () => {
+      if(document.hidden) {
+        originalContent = document.body.innerHTML
+        document.body.style.filter = 'blur(20px)'
+      } else {
+        document.body.style.filter = 'blur(0px)'
+      }
+    })
+  </script>
 </body>
 </html>
+
