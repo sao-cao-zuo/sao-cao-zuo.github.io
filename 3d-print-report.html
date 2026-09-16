@@ -1,0 +1,21 @@
+<style>
+* {
+  user-select: none;
+}
+@media print {
+  body {
+    display: none;
+  }
+}
+</style>
+<script>
+// 禁用右键菜单
+document.addEventListener('contextmenu', e => e.preventDefault())
+// 拦截截屏快捷键
+document.addEventListener('keydown', e => {
+  if([44, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123].includes(e.keyCode)) {
+    e.preventDefault()
+    return false
+  }
+})
+</script>
