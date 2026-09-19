@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的个人站点</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:"微软雅黑",system-ui;
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      min-height:100vh;
+      display:flex;align-items:center;justify-content:center;
+      color:white;
+      padding:20px;
+    }
+    .box{
+      background:rgba(255,255,255,0.15);
+      backdrop-filter:blur(10px);
+      padding:50px 30px;
+      border-radius:16px;
+      max-width:500px;
+      width:100%;
+      text-align:center;
+    }
+    h1{font-size:32px;margin-bottom:20px;}
+    .tip{font-size:18px;margin-bottom:30px;line-height:1.7;}
+    .btn{
+      display:block;
+      width:100%;
+      padding:14px;
+      margin:10px 0;
+      background:white;
+      color:#667eea;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+      transition:0.2s;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>一个简单的理想主义者</h1>
+    <p class="tip">
+      任何内容都被欢迎。
+    </p>
+   
+  </div>
+</body>
+</html>
+<a href="实验报告-b1043-3D打印26601042.doc" class="btn">点击查看原版实验报告</a>
